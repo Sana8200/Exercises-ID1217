@@ -1,5 +1,6 @@
-# Prerequisites
-*.d
+####################################
+# Build artifacts
+####################################
 
 # Object files
 *.o
@@ -7,42 +8,57 @@
 *.obj
 *.elf
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# Dependency files
+*.d
 
-# Precompiled Headers
+# Precompiled headers
 *.gch
 *.pch
 
 # Libraries
-*.lib
 *.a
 *.la
 *.lo
+*.lib
 
-# Shared objects (inc. Windows DLLs)
-*.dll
+# Shared libraries
 *.so
 *.so.*
+*.dll
 *.dylib
 
+####################################
 # Executables
-*.exe
+####################################
+
+# Common executable names
+a.out
 *.out
+*.exe
 *.app
+
+# Architecture-specific
 *.i*86
 *.x86_64
 *.hex
 
-# Debug files
+
+####################################
+# Debug / profiling files
+####################################
+
 *.dSYM/
 *.su
 *.idb
 *.pdb
+*.ilk
+*.map
+*.exp
 
-# Kernel Module Compile Results
+####################################
+# Kernel module build artifacts
+####################################
+
 *.mod*
 *.cmd
 .tmp_versions/
@@ -50,18 +66,44 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-funcitons
-# Ignore VS Code settings
+
+####################################
+# Build directories
+####################################
+
+build/
+bin/
+out/
+dist/
+
+####################################
+# Editor / OS files
+####################################
+
 .vscode/
-
-# Ignore macOS Finder files
+.idea/
 .DS_Store
+Thumbs.db
 
-# Ignore raw data/picture
+####################################
+# Temporary / backup files
+####################################
+
+*~
+*.swp
+*.tmp
+
+####################################
+# Optional: raw data / generated files
+####################################
+
 *.png
 *.raw
+*.bin
+*.elf.txt
 
-# Ignore bin files
-src/*.bin
-src/*.elf
-src/*.elf.txt
+# Project-specific executables
+parallel
+sequential
+server
+client
