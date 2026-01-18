@@ -10,7 +10,6 @@ void *add_one(void* arg){
     return NULL;
 }
 
-
 int main(){
     int n = 8;
     pthread_t threads[8];
