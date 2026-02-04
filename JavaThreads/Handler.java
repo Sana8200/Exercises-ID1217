@@ -11,13 +11,18 @@ public class Handler implements Runnable {
     // The run() method is what the thread will execute
 	public void run() {
 	   try {
+        // Create input and output streams to communicate with the client through the socket
+        // rd reads data sent by the client, wr sends data back to the client
          BufferedReader rd = new BufferedReader(new InputStreamReader(socket.getInputStream()));
          PrintWriter wr = new PrintWriter(socket.getOutputStream());
          String str;
+        
+        // rd.readLine() reads a line of text from the client, blocks until a line is available
+        // The loop continues until the client closes the connection (rd.readLine() returns null)
          while ((str = rd.readLine()) != null) {
             for ( int i=str.length(); i > 0; i-- ) wr.print(str.charAt(i-1));
-                wr.println(); 
-                wr.flush();
+                wr.println();   
+                wr.flush();      // flush() forces the output to be sent immediately, without waiting for the buffer to fill up
             }
             socket.close();
          } catch ( IOException e ) {;}
