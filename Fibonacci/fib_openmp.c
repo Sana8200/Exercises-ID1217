@@ -5,7 +5,7 @@
 long fib(long n){
     long x,y;
     if(n < 2){
-        reurn n;
+        return n;
     } else{
         #pragma omp task shared(x)
         x = fib(n-1);
@@ -20,13 +20,12 @@ long fib(long n){
 
 
 int main(int argc, char *argv[]){
-    long n = (arg > 1)? atoi(arg[1]): 30;
+    long n = (argc > 1)? atoi(argv[1]): 30;
     long result;
 
-    #pragma omp parallel{
-        #pragma omp single {
-            result = fib(n);
-        }
-    }
+    #pragma omp parallel
+    #pragma omp single 
+    result = fib(n);
+    
     printf("fib(%ld) = %ld\n", n, result);
 }
