@@ -23,8 +23,7 @@
 int main(int argc, char *argv[])
 {
     long num_steps = DEFAULT_NUM_STEPS;
-    if (argc > 1)
-        num_steps = atol(argv[1]);
+    if (argc > 1) num_steps = atol(argv[1]);
 
     double step = 1.0 / (double)num_steps;
     double sum  = 0.0;
