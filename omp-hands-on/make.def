@@ -1,0 +1,17 @@
+# gcc
+CC          = gcc
+CPP	    = g++
+CFLAGS      = -std=iso9899:1999 -pedantic -O -fopenmp
+
+# icc, intel
+#CC          = icc
+#CPP	    = icpc
+#CFLAGS    = -O -openmp
+
+# cc, Oracle
+#CC          = cc
+#CPP	    = c++
+#CFLAGS    = -O -xopenmp
+
+LIBS        = -lm
+

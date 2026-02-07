@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>openMP: a Hands-on Introduction</title>
+</head>
+<body>
+<h2 style="font-family: Helvetica,Arial,sans-serif;">openMP:
+a Hands-on Introduction</h2>
+Acknowledgment
+<h4>Compute Fibonacci number <span style="font-family: monospace;">fib(n)
+=
+fib(n-1) + fib(n-2)</span>,
+&nbsp;with seed values <span style="font-family: monospace;">fib(0)
+= 0, fib(1) = 1</span></h4>
+<ul>
+  <li>Serial code&nbsp;<a href="fib-seq.c">fib-seq.c</a></li>
+  <li>Parallel code using pthreads <a href="fib-pthread.c">fib-pthread.c</a></li>
+  <li>Using OpenMP <a href="fib-openmp.c">fib-openmp.c</a></li>
+</ul>
+<h4>Compute the 1D grid (vector) of points <span
+ style="font-family: monospace;">X</span><sub
+ style="font-family: monospace;">i</sub><span
+ style="font-family: monospace;">(t+1) = (X</span><sub
+ style="font-family: monospace;">i-1</sub><span
+ style="font-family: monospace;">(t) + 2 * X</span><sub
+ style="font-family: monospace;">i</sub><span
+ style="font-family: monospace;">(t) + X</span><sub
+ style="font-family: monospace;">i+1</sub><span
+ style="font-family: monospace;">(t)) / 4; 0 &lt; i
+&lt;= N; 0 &lt;= t &lt; T;</span> with constant
+boundary conditions <span style="font-family: monospace;">X</span><sub
+ style="font-family: monospace;">0</sub><span
+ style="font-family: monospace;"> = X</span><sub
+ style="font-family: monospace;">N+1</sub><span
+ style="font-family: monospace;"> = C</span>.</h4>
+<ul>
+  <li><a href="pde1d-seq.c">pde1d-seq.c</a> --
+Sequential version.</li>
+  <li><a href="pde-1d-openmp.c">pde1d-openmp.c</a>
+-- Parallel version using openMP&nbsp;</li>
+</ul>
+<h3>Exercise 1: Hello World</h3>
+Write a program that prints "hello world"<br>
+<ul>
+  <li><a href="hello.c">hello.c</a> --
+Sequential program&nbsp;</li>
+  <li><a href="solutions/hello_par.c">hello-par.c</a>
+--&nbsp;Parallel program using the openMP parallel construct </li>
+</ul>
+<h3>Exercises 2 to 4:&nbsp;Numerical Integration: Compute PI</h3>
+Compute
+PI using the numerical integration of the function 4/(1+x*x) from 0 to
+1.&nbsp; The value of this integral is PI. The precision depends on
+the number of steps (the number of intervals), which could be an input
+parameter.<br>
+<ul>
+  <li><a href="pi-seq.c">pi-seq.c</a> --
+Sequential version of the PI program</li>
+</ul>
+<h3>Exercise 2: Compute PI using a parallel construct and SPMD</h3>
+Create
+a parallel version of the PI program using a parallel construct. Pay
+close attention to shared versus private variables.In addition to a
+parallel construct, you will need the following runtime library routines<br>
+<span style="font-family: monospace;">int
+omp_get_num_threads()</span> returns the number of threads in the
+team;<br>
+<span style="font-family: monospace;">int
+omp_get_thread_num()</span> returns thread id or rank in the team
+(0,..., size-1)<br>
+<span style="font-family: monospace;">double
+omp_get_wtime()</span> returns time in seconds since a fixed
+point in the past. Use this function to estimate the execution time of
+your program.
+<ul>
+  <li><a href="solutions/pi_spmd_simple.c">pi_spmd_simple.c</a>
+-- Parallel PI program using the openmp parallel construct and an SPMD
+&nbsp;algorithm (using the partial sums array).</li>
+</ul>
+<h3>Exercise 3: Compute PI using a parallel construct and SPMD
+without false sharing.</h3>
+In
+exercise 2, you probably used an array to create space for each thread
+to store its partial sum. If array elements happen to share a cache
+line, this leads to false sharing, which in essence &#8220;sloshing
+independent data&#8221; back and forth between threads With false sharing,
+each update invalidates the cache line, in which the non-shared data
+are stored. Modify your PI program from exercise 2 to avoid false
+sharing due to the partial sums array.
+<ul>
+  <li><a href="solutions/pi_spmd_final.c">pi_spmd_final.c</a>
+-- PI SPMD final version without false sharing.</li>
+</ul>
+<h3>Exercise 4: Compute PI using loops</h3>
+Go
+back to the serial pi program and parallelize it with a loop construct.
+Your goal is to minimize the number of changes made to the serial
+program.
+<ul>
+  <li><a href="solutions/pi_loop.c">pi_loop.c</a>
+-- Parallel PI program using the openmp for work-sharing construct with
+reduction.</li>
+  <li><a href="solutions/pi.c">pi.c</a> --
+Parallel PI program using openmp with minimal changes to the serial
+program.</li>
+</ul>
+<h3>Exercise 5: Optimizing loops. Matrix multiplication&nbsp;</h3>
+Parallelize the matrix multiplication program in the file <a
+ href="matmul.c">matmul.c</a>.&nbsp;Try
+to optimize the parallel program (i.e.,&nbsp;improve its execution
+time) by playing with how the loops are scheduled. N.B. Be careful to
+whether variables are shared or private. Variables declared inside
+parallel region are private; whereas variables declared outside
+parallel region are shared.<br>
+<ul>
+  <li><a href="matmul.c">matmul.c</a> --
+Serial matrix multiply, which computes the product C&nbsp; = A * B.</li>
+  <li><a href="solutions/matmul_par.c">matmul_par.c</a>
+-- Parallel matrix multiply&nbsp;using OpenMP.</li>
+</ul>
+<h3>Exercise 6: Molecular dynamics</h3>
+Consider
+the program code supplied, which is a simple molecular dynamics
+simulation of the melting of solid argon. Computation is dominated by
+the calculation of force pairs in subroutine forces (in <a
+ href="MolDyn/forces.c">forces.c</a>).
+Parallelize this routine using a parallel for construct and atomics.
+Think carefully about which variables should be SHARED, PRIVATE or
+REDUCTION variables. Experiment with different schedules kinds.<br>
+<ul>
+  <li><a href="MolDyn/">sequential code</a></li>
+  <li>Solutions: Different parallel versions using openMP</li>
+  <ul>
+    <li><a href="MolDyn/solution-atomic">using
+atomic assignments<br>
+      </a></li>
+    <li><a href="MolDyn/solution-critical">using
+critical sections<br>
+      </a></li>
+    <li><a href="MolDyn/solution-main-parallel/">using
+parallel constructs in both main.c and forces.c<br>
+      </a></li>
+    <li><a href="MolDyn/solution-thread-private/">using
+thread private variables<br>
+      </a></li>
+  </ul>
+</ul>
+<h3>Exercise 7: Tasks in OpenMP</h3>
+Consider the sequential program <a href="linked.c">linked.c</a>,
+which traverses a linked list computing a sequence of Fibonacci numbers
+at each node. Parallelize this program using tasks. Compare your
+solution&#8217;s complexity to an approach without tasks.<br>
+<ul>
+  <li><a href="linked.c">linked.c</a> --
+Sequential&nbsp;program that computes the list
+of&nbsp;Fibonacci numbers.</li>
+  <li><a href="solutions/linked_omp3_tasks.c">linked_omp3_tasks.c</a>
+-- Parallel program (using openMP tasks) that computes the list
+of&nbsp;Fibonacci numbers.</li>
+</ul>
+<br>
+<hr style="width: 100%; height: 2px;">
+<address> Latest update: 2012-05-03&nbsp;</address>
+</body>
+</html>
