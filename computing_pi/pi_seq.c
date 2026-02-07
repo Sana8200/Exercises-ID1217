@@ -44,8 +44,7 @@ int main(int argc, char *argv[])
     double pi = step * sum;
 
     clock_gettime(CLOCK_MONOTONIC, &t_end);
-    double elapsed = (t_end.tv_sec - t_start.tv_sec)
-                   + (t_end.tv_nsec - t_start.tv_nsec) / 1e9;
+    double elapsed = (t_end.tv_sec - t_start.tv_sec) + (t_end.tv_nsec - t_start.tv_nsec) / 1e9;
 
     printf("Sequential Pi Computation\n");
     printf("-------------------------\n");

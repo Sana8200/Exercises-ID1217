@@ -114,7 +114,7 @@ double compute_pi_critical(long num_steps, int req_threads)
 }
 
 /*===========================================================================
- * VERSION 3: parallel for + reduction   ★ RECOMMENDED ★
+ * VERSION 3: parallel for + reduction   
  *
  * The reduction clause tells OpenMP:
  *   1. Give each thread a private copy of 'sum' (initialised to 0)
@@ -165,22 +165,19 @@ int main(int argc, char *argv[])
     t0 = omp_get_wtime();
     pi = compute_pi_spmd(num_steps, num_threads);
     t1 = omp_get_wtime();
-    printf("V1 (SPMD manual)     : pi = %.15f  error = %.2e  time = %.4fs\n",
-           pi, fabs(pi - M_PI), t1 - t0);
+    printf("V1 (SPMD manual)     : pi = %.15f  error = %.2e  time = %.4fs\n", pi, fabs(pi - M_PI), t1 - t0);
 
     /* --- Version 2: critical --- */
     t0 = omp_get_wtime();
     pi = compute_pi_critical(num_steps, num_threads);
     t1 = omp_get_wtime();
-    printf("V2 (for + critical)  : pi = %.15f  error = %.2e  time = %.4fs\n",
-           pi, fabs(pi - M_PI), t1 - t0);
+    printf("V2 (for + critical)  : pi = %.15f  error = %.2e  time = %.4fs\n", pi, fabs(pi - M_PI), t1 - t0);
 
     /* --- Version 3: reduction --- */
     t0 = omp_get_wtime();
     pi = compute_pi_reduction(num_steps, num_threads);
     t1 = omp_get_wtime();
-    printf("V3 (for + reduction) : pi = %.15f  error = %.2e  time = %.4fs\n",
-           pi, fabs(pi - M_PI), t1 - t0);
+    printf("V3 (for + reduction) : pi = %.15f  error = %.2e  time = %.4fs\n", pi, fabs(pi - M_PI), t1 - t0);
 
     return 0;
 }
