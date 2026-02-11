@@ -20,6 +20,7 @@ void *Consumer(void *);
 sem_t empty, full;    /* the global semaphores */
 int data;             /* shared buffer         */
 int numIters;
+int attr;
 
 /* main() -- read command line and create threads, then
              print result when the threads have quit */
