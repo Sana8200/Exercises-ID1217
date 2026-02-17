@@ -20,5 +20,6 @@ public class ReverseClient {
             str = br.readLine(); // Read reversed string
             System.out.println(str);
         }
+        socket.close();
     }
 }

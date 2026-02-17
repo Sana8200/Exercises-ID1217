@@ -15,9 +15,13 @@ public class ReverseServer {
         
         System.out.println("Server running on port " + port);
         
-        while (true) {
-            Socket socket = serverSocket.accept();  // Wait for client
-            executor.execute(new Handler(socket));   // Handle in pool thread
+        try {
+            while (true) {
+                Socket socket = serverSocket.accept();  // Wait for client
+                executor.execute(new Handler(socket));   // Handle in pool thread
+            }
+        } finally {
+            serverSocket.close();
         }
     }
 }
