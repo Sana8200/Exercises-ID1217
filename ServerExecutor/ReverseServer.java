@@ -24,9 +24,14 @@ public class ReverseServer {
             System.exit(1);
         }
         ExecutorService executor = Executors.newFixedThreadPool(poolSize);
-        while (true) {
-            Socket socket = serverSocket.accept();
-            executor.execute(new Handler(socket));
+        try {
+            while (true) {
+                Socket socket = serverSocket.accept();
+                executor.execute(new Handler(socket));
+            }
+        } finally {
+            serverSocket.close();
+            executor.shutdown();
         }
     }
 }

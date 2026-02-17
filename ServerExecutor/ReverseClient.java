@@ -16,8 +16,9 @@ public class ReverseClient {
             System.out.println("USAGE: java Client [host] [port]");
             System.exit(1);
         }
+        Socket socket = null;
         try {
-            Socket socket = new Socket(host, port);
+            socket = new Socket(host, port);
             BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(socket.getInputStream()));
@@ -32,6 +33,9 @@ public class ReverseClient {
         } catch (IOException e) {
             System.out.println("Can not connect to the server");
             System.exit(1);
+        }
+        if (socket != null) {
+            socket.close();
         }
     }
 }
