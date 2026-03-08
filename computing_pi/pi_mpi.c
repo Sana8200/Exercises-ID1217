@@ -14,6 +14,7 @@ int main(int argc, char *argv[]){
     MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
 
     printf("I am process %d of %d\n", myid, numprocs);
+    fflush(stdout);     
 
     while(!done){
         // Only process 0 reads input
@@ -44,6 +45,7 @@ int main(int argc, char *argv[]){
 
         if(myid == 0){
             printf("pi is approximately %.16f, error is %.16f\n", pi, fabs(pi - PI25DT));
+            fflush(stdout);  // flush to ensure output is printed before next prompt, especially when running with many processes
         }
         MPI_Finalize();
     }

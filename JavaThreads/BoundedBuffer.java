@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
    The pointer wraps back to the start! 
 */
 
-public class BoundedBuffer {
+public class boundedBuffer {
 
     // ═══════════════════════════════════════════════════════
     // SYNCHRONIZATION TOOLS
@@ -41,7 +41,7 @@ public class BoundedBuffer {
     // ═══════════════════════════════════════════════════════
     // CONSTRUCTOR
     // ═══════════════════════════════════════════════════════
-    public BoundedBuffer(int n) {  
+    public boundedBuffer(int n) {  
         this.n = n;
         items = new Object[n];     // Object is the superclass of all classes, so we can store objects of any class and type
     }

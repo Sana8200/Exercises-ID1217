@@ -2,7 +2,7 @@ import java.io.*;               // For Input/Output streams
 import java.net.*;              // For networking classes, socket, ServerSocket
 import java.util.concurrent.*;  // For ExecutorService and Executors
 
-public class ReverseServer {
+public class reverseServer {
     public static void main(String[] args) throws IOException {
         int poolSize = 3;       // Number of threads in the pool
         int port = 4444;        // Network port to listen on
@@ -37,7 +37,7 @@ public class ReverseServer {
                 // when a client connects, returns a new Socket for the client
                 // the socket is the connection to that client
 
-                executor.execute( new Handler(socket) );
+                executor.execute( new handler(socket) );
                 // Creates a new handler for this client socket and submits it to the thread pool
                 // A thread from the pool will rn it
                 // main loop immediately goes back to accept() to wait for next client
