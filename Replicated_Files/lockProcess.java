@@ -1,23 +1,5 @@
 package Replicated_Files;
 
-/**
- * LockProcess — the "in...ni" rendezvous gatekeeper from the pseudocode.
- *
- * Pseudocode equivalent:
- *   process Lock {
- *     int nr = 0, nw = 0;
- *     while (true) {
- *       in startread()  and nw == 0 -> nr++;
- *       [] endread()               -> nr--;
- *       [] startwrite() and nr==0 and nw==0 -> nw++;
- *       [] endwrite()              -> nw--;
- *       ni
- *     }
- *   }
- *
- * Invariant: (nr == 0 || nw == 0) && nw <= 1
- */
-
 public class lockProcess {
 
     private final String serverName;
@@ -44,7 +26,7 @@ public class lockProcess {
         notifyAll();               // a waiting writer might now proceed
     }
 
-    // startwrite() — blocks until nr == 0 AND nw == 0
+    // startwrite() — blocks until nr == 0 AND nw == 0, Invariant: (nr == 0 || nw == 0) && nw <= 1
     public synchronized void startWrite() throws InterruptedException {
         while (nr != 0 || nw != 0) {   // guard: nr==0 && nw==0
             wait();
