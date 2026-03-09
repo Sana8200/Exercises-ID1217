@@ -21,7 +21,7 @@ public class reverseServer {
         
         while (true) {
             Socket socket = serverSocket.accept();
-            executor.execute(new Handler(socket));  // Submit to pool
+            executor.execute(new handler(socket));  // Submit to pool
         }
     }
 }

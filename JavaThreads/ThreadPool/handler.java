@@ -3,7 +3,7 @@ package ThreadPool;
 import java.io.*;
 import java.net.*;
 
-public class handler {
+public class handler implements Runnable {
     private Socket socket;
 
     public handler(Socket socket) {
